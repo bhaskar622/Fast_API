@@ -1,0 +1,26 @@
+meta {
+  name: api/v1/tasks(post)
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://127.0.0.1:8000/api/v1/tasks/
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "title": "test 1",
+    "description": "Adding all the fields related to task model",
+    "status": "done",
+    "owner_id": 0,
+    "project_id": 0
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
