@@ -1,0 +1,16 @@
+meta {
+  name: api/v1/users/ID(get)
+  type: http
+  seq: 8
+}
+
+get {
+  url: http://127.0.0.1:8000/api/v1/users/1
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

@@ -1,0 +1,25 @@
+meta {
+  name: api/v1/users/ID
+  type: http
+  seq: 9
+}
+
+patch {
+  url: http://127.0.0.1:8000/api/v1/users/2
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "name": "Bhavik Daudra",
+    "email": "bhavik@example.com",
+    "password": "bhavik.intech",
+    "is_active": true
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
