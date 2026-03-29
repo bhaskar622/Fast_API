@@ -1,7 +1,7 @@
 # main.py
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, Request
-from app.api.routes import tasks, users, projects
+from app.api.routes import tasks, users, projects, auth
 from app.db.base import Base
 from app.db.session import engine
 # import app.models  # noqa: F401 — registers all models with SQLAlchemy
@@ -26,6 +26,7 @@ app = FastAPI(title="Task Manager API", lifespan=lifespan)
 app.include_router(tasks.router, prefix="/api/v1")
 app.include_router(users.router, prefix="/api/v1")
 app.include_router(projects.router, prefix="/api/v1")
+app.include_router(auth.router, prefix="/api/v1")
 
 
 @app.exception_handler(RequestValidationError)

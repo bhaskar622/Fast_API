@@ -56,14 +56,14 @@ async def list_tasks(
     )
 
 
-@router.get("/", response_model=list[TaskResponse])
-async def list_tasks(
-    owner_id: Optional[int] = None,
-    db: AsyncSession = Depends(get_db),
-):
-    """Route is now THIN — it only translates HTTP → use case → HTTP."""
-    tasks = await ListTasksQuery(db).execute(owner_id=owner_id)
-    return tasks
+# @router.get("/", response_model=list[TaskResponse])
+# async def list_tasks(
+#     owner_id: Optional[int] = None,
+#     db: AsyncSession = Depends(get_db),
+# ):
+#     """Route is now THIN — it only translates HTTP → use case → HTTP."""
+#     tasks = await ListTasksQuery(db).execute(owner_id=owner_id)
+#     return tasks
 
 
 @router.get("/{task_id}", response_model=TaskResponse)
@@ -72,16 +72,16 @@ async def get_task(task_id: int, db: AsyncSession = Depends(get_db)):
     return task
 
 
-@router.post("/", response_model=TaskResponse, status_code=201)
-async def create_task(data: TaskCreateRequest, db: AsyncSession = Depends(get_db)):
-    command = CreateTaskCommand(
-        title=data.title,
-        description=data.description,
-        status=data.status,
-        owner_id=data.owner_id,
-    )
-    task = await CreateTaskUseCase(db).execute(command)
-    return task
+# @router.post("/", response_model=TaskResponse, status_code=201)
+# async def create_task(data: TaskCreateRequest, db: AsyncSession = Depends(get_db)):
+#     command = CreateTaskCommand(
+#         title=data.title,
+#         description=data.description,
+#         status=data.status,
+#         owner_id=data.owner_id,
+#     )
+#     task = await CreateTaskUseCase(db).execute(command)
+#     return task
 
 
 @router.patch("/{task_id}", response_model=TaskResponse)
