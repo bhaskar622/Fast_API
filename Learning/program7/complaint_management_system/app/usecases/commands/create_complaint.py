@@ -33,5 +33,4 @@ class CreateComplaintUseCase:
             priority=command.priority,
             created_by=current_user.id,
         )
-        print ("\n complaint ::::::::::: ",complaint)
         return await self.repo.save(complaint)

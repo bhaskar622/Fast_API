@@ -31,7 +31,6 @@ async def create_complaint(
     current_user: User = Depends(get_current_user),
 ):
     command = CreateComplaintCommand(title=data.title, description=data.description, priority=data.priority)
-    print ("\n command >>>>>>>>>>> ",command)
     return await CreateComplaintUseCase(db).execute(command, current_user)
 
 
