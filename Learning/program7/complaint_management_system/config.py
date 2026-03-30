@@ -4,9 +4,9 @@ from functools import lru_cache
 
 class Settings(BaseSettings):
     database_url: str = "postgresql+asyncpg://postgres:password@localhost/fast_complaint_manage_system"
-    secret_key: str = "change-this-in-production"
+    secret_key: str = "fast_AsGQxNbb8hpggAH9xgnmPBYe12t9VXpQ"
     algorithm: str = "HS256"
-    access_token_expire_minutes: int = 30
+    # access_token_expire_minutes: int = 30
     debug: bool = False
 
     class Config:

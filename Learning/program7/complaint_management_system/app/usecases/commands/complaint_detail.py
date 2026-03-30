@@ -23,7 +23,7 @@ class CreateComplaintDetailUseCase:
         if data.complaint_type not in VALID_COMPLAINT_TYPES:
             raise HTTPException(status_code=400, detail=f"Complaint type must be one of: {VALID_COMPLAINT_TYPES}")
 
-        # Only approver can set financial amounts > 0
+        # Only approver can set amounts > 0
         has_financials = data.refund_amount > 0 or data.recovery_amount > 0 or data.extra_cost > 0
         if has_financials and current_user.role != "approver":
             raise HTTPException(status_code=403, detail="Only approver can set financial amounts")
@@ -53,7 +53,7 @@ class UpdateComplaintDetailUseCase:
         if detail is None:
             raise HTTPException(status_code=404, detail=f"Complaint detail for complaint {complaint_id} not found")
 
-        # Check if financial fields are being modified
+        # Check if financial fields are being modified then check if approver user is doing it
         financial_fields_changed = any([
             data.refund_amount is not None and data.refund_amount != detail.refund_amount,
             data.recovery_amount is not None and data.recovery_amount != detail.recovery_amount,
@@ -63,13 +63,13 @@ class UpdateComplaintDetailUseCase:
             raise HTTPException(status_code=403, detail="Only approver can modify financial amounts")
 
         if financial_fields_changed:
-            detail.financial_approved = False  # Reset approval on financial change
+            detail.financial_approved = False
 
         if data.complaint_type and data.complaint_type not in VALID_COMPLAINT_TYPES:
             raise HTTPException(status_code=400, detail=f"Complaint type must be one of: {VALID_COMPLAINT_TYPES}")
 
         for field in ["customer_name", "customer_email", "customer_phone", "destination",
-                       "complaint_type", "provider", "remarks", "refund_amount", "recovery_amount", "extra_cost"]:
+                        "complaint_type", "provider", "remarks", "refund_amount", "recovery_amount", "extra_cost"]:
             value = getattr(data, field, None)
             if value is not None:
                 setattr(detail, field, value)

@@ -13,11 +13,9 @@ class DeleteComplaintUseCase:
         if complaint is None:
             raise HTTPException(status_code=404, detail=f"Complaint {complaint_id} not found")
 
-        # Only draft complaints can be deleted
         if complaint.stage != "draft":
             raise HTTPException(status_code=400, detail="Only draft complaints can be deleted")
 
-        # Only creator or manager/approver can delete
         if complaint.created_by != current_user.id and current_user.role == "user":
             raise HTTPException(status_code=403, detail="You can only delete your own complaints")
 

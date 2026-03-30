@@ -13,7 +13,6 @@ logger = logging.getLogger(__name__)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    import app.models  # noqa: F401 — registers all models
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
     yield

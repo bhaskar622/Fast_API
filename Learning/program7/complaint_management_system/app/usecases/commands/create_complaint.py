@@ -1,7 +1,7 @@
 from fastapi import HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.repositories.complaint_repository import ComplaintRepository
-from app.models.complaint import Complaint, VALID_STAGES
+from app.models.complaint import Complaint
 from app.models.user import User
 from pydantic import BaseModel
 

@@ -27,7 +27,6 @@ class UpdateStageUseCase:
 
         current_stage = complaint.stage
 
-        # Validate transition is allowed
         allowed_next = STAGE_TRANSITIONS.get(current_stage, set())
         if new_stage not in allowed_next:
             raise HTTPException(
@@ -35,7 +34,6 @@ class UpdateStageUseCase:
                 detail=f"Cannot transition from '{current_stage}' to '{new_stage}'. Allowed: {allowed_next}"
             )
 
-        # Validate role permission for this transition
         allowed_roles = STAGE_ROLE_PERMISSIONS.get((current_stage, new_stage), set())
         if current_user.role not in allowed_roles:
             raise HTTPException(
@@ -43,14 +41,12 @@ class UpdateStageUseCase:
                 detail=f"Role '{current_user.role}' cannot perform transition '{current_stage}' → '{new_stage}'"
             )
 
-        # Require complaint detail before submitting
         if new_stage == "submitted" and complaint.detail is None:
             raise HTTPException(
                 status_code=400,
                 detail="Complaint detail (customer, type) is required before submitting"
             )
 
-        # Require financial approval before resolving
         if new_stage == "resolved" and complaint.detail:
             has_financials = (
                 complaint.detail.refund_amount > 0

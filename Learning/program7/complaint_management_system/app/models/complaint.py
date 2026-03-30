@@ -8,11 +8,11 @@ VALID_STAGES = {"draft", "submitted", "under_review", "approved", "resolved", "c
 
 STAGE_TRANSITIONS = {
     "draft": {"submitted"},
-    "submitted": {"under_review", "draft"},       # can be sent back to draft
-    "under_review": {"approved", "submitted"},     # can be sent back to submitted
+    "submitted": {"under_review", "draft"},
+    "under_review": {"approved", "submitted"},
     "approved": {"resolved"},
     "resolved": {"closed"},
-    "closed": set(),                               # terminal state
+    "closed": set(),
 }
 
 

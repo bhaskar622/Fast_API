@@ -19,6 +19,7 @@ class ComplaintRepository:
         )
         return result.scalar_one_or_none()
 
+    # took help from ai the data was written but the process was not getting completed
     async def save(self, complaint: Complaint) -> Complaint:
         self.session.add(complaint)
         await self.session.commit()

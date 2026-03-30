@@ -22,8 +22,6 @@ import math
 router = APIRouter(prefix="/complaints", tags=["Complaints"])
 
 
-# --- Complaint CRUD ---
-
 @router.post("/", response_model=ComplaintResponse, status_code=201)
 async def create_complaint(
     data: ComplaintCreateRequest,
@@ -82,8 +80,6 @@ async def delete_complaint(
     await DeleteComplaintUseCase(db).execute(complaint_id, current_user)
 
 
-# --- Stage Transitions ---
-
 @router.patch("/{complaint_id}/stage", response_model=ComplaintResponse)
 async def update_stage(
     complaint_id: int,
@@ -93,8 +89,6 @@ async def update_stage(
 ):
     return await UpdateStageUseCase(db).execute(complaint_id, data.stage, current_user)
 
-
-# --- Complaint Detail ---
 
 @router.post("/{complaint_id}/detail", response_model=ComplaintDetailResponse, status_code=201)
 async def create_detail(

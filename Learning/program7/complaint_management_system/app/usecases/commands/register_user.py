@@ -23,7 +23,6 @@ class RegisterUserUseCase:
     async def execute(self, command: RegisterUserCommand) -> User:
         if command.role not in VALID_ROLES:
             raise HTTPException(status_code=400, detail=f"Invalid role. Must be one of: {VALID_ROLES}")
-
         existing = await self.session.execute(
             select(User).where(User.email == command.email)
         )
@@ -32,7 +31,6 @@ class RegisterUserUseCase:
 
         if len(command.password) < 8:
             raise HTTPException(status_code=400, detail="Password must be at least 8 characters")
-
         user = User(
             email=command.email,
             name=command.name,

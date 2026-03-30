@@ -19,7 +19,7 @@ class ComplaintDetail(Base):
     provider: Mapped[str | None] = mapped_column(String(200), nullable=True)
     remarks: Mapped[str | None] = mapped_column(Text, nullable=True)
 
-    # Financial fields — require Approver role to set/modify
+    # Financial fields
     refund_amount: Mapped[Decimal] = mapped_column(Numeric(12, 2), default=0, nullable=False)
     recovery_amount: Mapped[Decimal] = mapped_column(Numeric(12, 2), default=0, nullable=False)
     extra_cost: Mapped[Decimal] = mapped_column(Numeric(12, 2), default=0, nullable=False)
